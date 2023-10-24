@@ -1,16 +1,20 @@
 interface Props {
-  productTypeValue?: string;
-  onProductTypeChange?: (newType: string) => void;
+  formInputValue: string;
+  onSubmitForm?: (event: React.FormEvent<HTMLFormElement>) => void;
+  onChangeForm?: (newType: string) => void;
 }
 
-const AddItem = ({ productTypeValue, onProductTypeChange }: Props) => {
+const AddItem = ({ formInputValue, onSubmitForm, onChangeForm }: Props) => {
   return (
     <>
-      <form>
+      <form onSubmit={onSubmitForm}>
         <input
-          value={productTypeValue}
-          onChange={(event) => onProductTypeChange?.(event.target.value)}
+          name="item_name"
+          value={formInputValue}
+          onChange={(event) => onChangeForm?.(event.target.value)}
         />
+
+        <input type="submit" value="Add Item" />
       </form>
     </>
   );

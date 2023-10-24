@@ -1,0 +1,12 @@
+body {
+  padding: 15px;
+}
+
+#root {
+  max-width: 1200px;
+  margin-inline: auto;
+}
+
+ul.list-group {
+  margin-bottom: 50px;
+}
