@@ -4,7 +4,6 @@ import ToDoList from "./components/ToDoList";
 import "./assets/css/App.css";
 
 function App() {
-  const [inputValue, setInputValue] = useState( '' );
 
   const [newListItemValue, setNewListItemValue] = useState<string[]>([ 'Demo value' ]);
 
@@ -22,7 +21,6 @@ function App() {
     )?.value;
 
     setNewListItemValue((prevlistItems) => [ ...prevlistItems, inputFieldValue ]);
-    setInputValue('');
   };
 
   return (
@@ -32,9 +30,7 @@ function App() {
       />
 
       <AddItem
-        formInputValue={inputValue}
         onSubmitForm={handleAddItemSubmit}
-        onChangeForm={setInputValue}
       />
     </>
   );
