@@ -5,11 +5,7 @@ interface Props {
   onSubmitForm?: (event: FormEvent<HTMLFormElement>) => void;
 }
 
-// I've changed it only to be uniform with App.tsx form.
-function AddItem(props: Props) {
-
-  // I found it to be better practice because in the future you might accept more props and this looks a little better to my taste.
-  const { onSubmitForm } = props;
+const AddItem = ({ onSubmitForm }: Props) => {
 
   // Alternative way to store values (in this case: a pointer to the input element), without triggering re-renders:
   // useRef hook is used to store values without triggering re-rendering, as opposed to useState.
@@ -42,6 +38,6 @@ function AddItem(props: Props) {
       <input type="submit" value="Add Item" onChange={handleChangeInput} />
     </form>
   );
-}
+};
 
 export default AddItem;
