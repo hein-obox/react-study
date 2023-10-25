@@ -4,9 +4,7 @@ import ToDoList from "./components/ToDoList";
 import "./assets/css/App.css";
 
 function App() {
-  const [inputValue, setInputValue] = useState( '' );
-
-  const [newListItemValue, setNewListItemValue] = useState<string[]>([ 'Demo value' ]);
+  const [newListItemValue, setNewListItemValue] = useState<string[]>(['Demo value']);
 
   function getFormControl(form: HTMLFormElement, name: string) {
     const control = form?.elements.namedItem(name);
@@ -17,12 +15,13 @@ function App() {
   const handleAddItemSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    const inputFieldValue = (
+    const inputFieldElement = (
       getFormControl(event.currentTarget, "item_name") as HTMLInputElement
-    )?.value;
-
-    setNewListItemValue((prevlistItems) => [ ...prevlistItems, inputFieldValue ]);
-    setInputValue('');
+    );
+    if (!inputFieldElement) return
+    const inputFieldValue = inputFieldElement.value
+    inputFieldElement.value = '';
+    setNewListItemValue((prevlistItems) => [...prevlistItems, inputFieldValue]);
   };
 
   return (
@@ -32,9 +31,7 @@ function App() {
       />
 
       <AddItem
-        formInputValue={inputValue}
         onSubmitForm={handleAddItemSubmit}
-        onChangeForm={setInputValue}
       />
     </>
   );
