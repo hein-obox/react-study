@@ -1,17 +1,23 @@
+import { FormEvent, useRef } from "react";
+
 interface Props {
-  formInputValue: string;
-  onSubmitForm?: (event: React.FormEvent<HTMLFormElement>) => void;
-  onChangeForm?: (newType: string) => void;
+  onSubmitForm?: (event: FormEvent<HTMLFormElement>) => void;
 }
 
-const AddItem = ({ formInputValue, onSubmitForm, onChangeForm }: Props) => {
+const AddItem = ({ onSubmitForm }: Props) => {
+  const inputElement = useRef<HTMLInputElement | null>(null);
+
+  function handleSubmitForm(event: FormEvent<HTMLFormElement>) {
+    onSubmitForm?.(event);
+    if (inputElement.current) inputElement.current.value = '';
+  }
+
   return (
     <>
-      <form onSubmit={onSubmitForm}>
+      <form onSubmit={handleSubmitForm}>
         <input
+          ref={inputElement}
           name="item_name"
-          value={formInputValue}
-          onChange={(event) => onChangeForm?.(event.target.value)}
         />
 
         <input type="submit" value="Add Item" />
