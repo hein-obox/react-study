@@ -29,11 +29,23 @@ function App() {
     setItemArray((prevlistItems) => [...prevlistItems.slice(0, itemArrayIndex), ...prevlistItems.slice(itemArrayIndex + 1)] );
   };
 
+  const handleOnUpdateClickHandler = (event: React.MouseEvent<HTMLElement>) => {
+    const itemValue = event.currentTarget.previousSibling?.nodeValue?.toString(),
+      itemArrayIndex = + ( event.currentTarget.dataset.index ?? 0 );
+
+    const newList = itemArray.map( ( listItem, index ) => itemArrayIndex === index 
+      ? listItem = itemValue
+      : listItem );
+
+    setItemArray( newList );
+  }
+
   return (
     <>
       <ToDoList
         listItems={itemArray}
         onDeleteClickHandler={handleOnDeleteClickHandler}
+        onUpdateClickHandler={handleOnUpdateClickHandler}
       />
 
       <AddItem
