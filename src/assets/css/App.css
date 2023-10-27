@@ -10,3 +10,11 @@ body {
 ul.list-group {
   margin-bottom: 50px;
 }
+
+li.list-group-item {
+  display: flex;
+}
+
+.list-group-item span {
+  flex-grow: 1;
+}
