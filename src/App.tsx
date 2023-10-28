@@ -3,7 +3,7 @@ import AddItem from "./components/AddItem";
 import ToDoList from "./components/ToDoList";
 import "./assets/css/App.css";
 
-function App() {
+const App = () => {
   const [itemArray, setItemArray] = useState<string[]>([ 'Demo value' ]);
 
   function getFormControl(form: HTMLFormElement, name: string) {
@@ -53,6 +53,6 @@ function App() {
       />
     </>
   );
-}
+};
 
 export default App;
