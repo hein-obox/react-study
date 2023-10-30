@@ -4,52 +4,46 @@ import ToDoList from "./components/ToDoList";
 import "./assets/css/App.css";
 
 const App = () => {
-  const [itemArray, setItemArray] = useState<string[]>([ 'Demo value' ]);
+  const [itemArray, setItemArray] = useState<string[]>( [ 'Demo value' ] );
 
-  function getFormControl(form: HTMLFormElement, name: string) {
-    const control = form?.elements.namedItem(name);
+  function getFormControl( form: HTMLFormElement, name: string ) {
+    const control = form?.elements.namedItem( name );
 
     return control;
   }
 
-  const handleAddItemSubmit = (event: FormEvent<HTMLFormElement>) => {
+  const handleAddItemSubmit = ( event: FormEvent<HTMLFormElement> ) => {
     event.preventDefault();
 
     const inputFieldValue = (
-      getFormControl(event.currentTarget, "item_name") as HTMLInputElement
+      getFormControl( event.currentTarget, "item_name" ) as HTMLInputElement
     )?.value;
 
-    setItemArray((prevlistItems) => [ ...prevlistItems, inputFieldValue ]);
+    setItemArray(( prevlistItems ) => [ ...prevlistItems, inputFieldValue ] );
   };
 
-  const handleOnDeleteClickHandler = (event: React.MouseEvent<HTMLElement>) => {
-    const itemValue = event.currentTarget.id,
-      itemArrayIndex = itemArray.indexOf( itemValue );
-
-    setItemArray((prevlistItems) => [...prevlistItems.slice(0, itemArrayIndex), ...prevlistItems.slice(itemArrayIndex + 1)] );
+  const handleOnDeleteClickHandler = ( deleteIndex: number ) => {
+    setItemArray( ( prevlistItems ) => prevlistItems.filter( ( _, currIndex ) => currIndex !== deleteIndex ) );
   };
 
-  const handleOnUpdateClickHandler = (event: React.MouseEvent<HTMLElement>) => {
-    const itemValue = event.currentTarget.previousSibling?.nodeValue?.toString(),
-      itemArrayIndex = + ( event.currentTarget.dataset.index ?? 0 );
-
-    const newList = itemArray.map( ( listItem, index ) => itemArrayIndex === index 
-      ? listItem = itemValue
-      : listItem );
-
-    setItemArray( newList );
+  const handleOnUpdateClickHandler = ( itemValue: string, itemArrayIndex: number ) => {
+    setItemArray( prevList => prevList.map( ( listItem, index ) => itemArrayIndex === index
+      ? itemValue
+      : listItem ) );
+    // // Alt
+    // setItemArray(prevList => [...prevList.slice(0, itemArrayIndex), itemValue, ...prevList.slice(itemArrayIndex + 1)]);
   }
 
   return (
     <>
       <ToDoList
-        listItems={itemArray}
-        onDeleteClickHandler={handleOnDeleteClickHandler}
-        onUpdateClickHandler={handleOnUpdateClickHandler}
+        listItems={ itemArray }
+        onDeleteClickHandler={ handleOnDeleteClickHandler }
+        onUpdateClickHandler={ handleOnUpdateClickHandler }
       />
 
       <AddItem
-        onSubmitForm={handleAddItemSubmit}
+        onSubmitForm={ handleAddItemSubmit }
       />
     </>
   );
